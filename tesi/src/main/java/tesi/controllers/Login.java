@@ -20,12 +20,13 @@ public class Login {
 
 	@Autowired
 	private UtentiRepository utentiRepository;
-	
+
 	@PostMapping(path = "/login")
-	public @ResponseBody UserViewModel login(HttpServletRequest request,
-			@RequestBody Utenti utente) {
+	public @ResponseBody UserViewModel login(HttpServletRequest request, @RequestBody Utenti utente) {
 		Utenti ut = utentiRepository.findByUsernameAndPasswd(utente.getUsername(), utente.getPasswd());
 		UserViewModel utView = new UserViewModel(ut);
-			return utView;
+		
+		return utView;
 	}
+
 }
