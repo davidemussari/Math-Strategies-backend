@@ -23,7 +23,7 @@ public class UserViewModel {
 	}
 
 	private String tipoUtente(Utenti ut) {
-		if(ut.getDocente_assegnato() != 0)
+		if(ut.getDocenteAssegnato() != 0)
 			return "studente";
 		else
 			return "docente";
