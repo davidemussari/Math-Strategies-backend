@@ -16,7 +16,7 @@ import tesi.viewModels.UserViewModel;
 @Controller
 @RequestMapping
 @CrossOrigin
-public class Login {
+public class LoginController {
 
 	@Autowired
 	private UtentiRepository utentiRepository;
@@ -25,7 +25,6 @@ public class Login {
 	public @ResponseBody UserViewModel login(HttpServletRequest request, @RequestBody Utenti utente) {
 		Utenti ut = utentiRepository.findByUsernameAndPasswd(utente.getUsername(), utente.getPasswd());
 		UserViewModel utView = new UserViewModel(ut);
-		
 		return utView;
 	}
 
