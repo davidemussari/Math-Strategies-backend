@@ -15,7 +15,7 @@ import tesi.repository.UtentiRepository;
 @Controller
 @RequestMapping(value = "/utenti", method = { RequestMethod.GET })
 @CrossOrigin(origins = "http://localhost:4200")
-public class UserController {
+public class UtentiController {
 	
 	@Autowired
 	private UtentiRepository utentiRepository;
