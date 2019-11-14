@@ -1,5 +1,3 @@
-// Generated with g9.
-
 package tesi.dataModel;
 
 import java.io.Serializable;
@@ -11,12 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Version;
 
 @Entity(name="legenda_esercizi")
 public class LegendaEsercizi implements Serializable {
 
-    /** Primary key. */
+	private static final long serialVersionUID = -125458691662092762L;
+
+	/** Primary key. */
     protected static final String PK = "id";
 
     @Id
