@@ -9,12 +9,13 @@ import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 @Entity(name="storico_esercizi_svolti_studenti")
 public class StoricoEserciziSvoltiStudenti implements Serializable {
 
-    /** Primary key. */
+	private static final long serialVersionUID = 252429395375884913L;
+
+	/** Primary key. */
     protected static final String PK = "primary";
 
     @Column(nullable=false, length=15000)

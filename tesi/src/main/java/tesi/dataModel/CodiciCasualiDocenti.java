@@ -1,5 +1,3 @@
-// Generated with g9.
-
 package tesi.dataModel;
 
 import java.io.Serializable;
@@ -9,12 +7,13 @@ import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Version;
 
 @Entity(name="codici_casuali_docenti")
 public class CodiciCasualiDocenti implements Serializable {
 
-    /** Primary key. */
+	private static final long serialVersionUID = 7816719136117346461L;
+
+	/** Primary key. */
     protected static final String PK = "idDocente";
 
     @Id

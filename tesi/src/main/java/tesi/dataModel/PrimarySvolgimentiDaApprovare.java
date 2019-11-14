@@ -11,7 +11,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public final class PrimarySvolgimentiDaApprovare implements Serializable{
 
-    @Column(name="id_studente", nullable=false, precision=10)
+	private static final long serialVersionUID = -7331396501113886816L;
+	
+	@Column(name="id_studente", nullable=false, precision=10)
     private final int idStudente;
     @Column(nullable=false)
     private final Timestamp data;

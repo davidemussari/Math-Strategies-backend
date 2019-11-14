@@ -9,12 +9,13 @@ import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 @Entity(name="svolgimenti_da_approvare")
 public class SvolgimentiDaApprovare implements Serializable {
 
-    /** Primary key. */
+	private static final long serialVersionUID = -2765491728702047140L;
+
+	/** Primary key. */
     protected static final String PK = "primary";
 
     @Column(name="id_esercizio", nullable=false, precision=10)

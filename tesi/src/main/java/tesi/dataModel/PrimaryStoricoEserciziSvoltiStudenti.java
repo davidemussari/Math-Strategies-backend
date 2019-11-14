@@ -1,5 +1,3 @@
-// Generated with g9.
-
 package tesi.dataModel;
 
 import java.io.Serializable;
@@ -11,7 +9,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public final class PrimaryStoricoEserciziSvoltiStudenti implements Serializable{
 
-    @Column(name="id_studente", nullable=false, precision=10)
+	private static final long serialVersionUID = -1377480708198401870L;
+	
+	@Column(name="id_studente", nullable=false, precision=10)
     private final int idStudente;
     @Column(nullable=false)
     private final Timestamp data;

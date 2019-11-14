@@ -11,12 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Version;
 
 @Entity(name="svolgimenti_approvati")
 public class SvolgimentiApprovati implements Serializable {
 
-    /** Primary key. */
+	private static final long serialVersionUID = 1276155919366105096L;
+
+	/** Primary key. */
     protected static final String PK = "id";
 
     @Id
