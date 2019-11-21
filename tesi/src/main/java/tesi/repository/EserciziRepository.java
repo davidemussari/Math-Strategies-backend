@@ -14,5 +14,4 @@ public interface EserciziRepository extends CrudRepository<Esercizi, Long>{
 	
 	int countByTipologia(int tipologia);
 	
-
 }
