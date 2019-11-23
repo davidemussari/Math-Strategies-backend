@@ -18,6 +18,8 @@ public class StoricoEserciziSvoltiStudenti implements Serializable {
 	/** Primary key. */
     protected static final String PK = "primary";
 
+    @Column(name="id_esercizio", nullable=false, precision=10)
+    private int idEsercizio;
     @Column(nullable=false, length=15000)
     private String passaggi;
     @EmbeddedId
@@ -38,6 +40,24 @@ public class StoricoEserciziSvoltiStudenti implements Serializable {
      */
     public String getPassaggi() {
         return passaggi;
+    }
+
+    /**
+     * Setter method for passaggi.
+     *
+     * @param aPassaggi the new value for passaggi
+     */
+    public void setidEsercizio(int id) {
+    	idEsercizio = id;
+    }
+    
+    /**
+     * Access method for passaggi.
+     *
+     * @return the current value of passaggi
+     */
+    public int getidEsercizio() {
+        return idEsercizio;
     }
 
     /**

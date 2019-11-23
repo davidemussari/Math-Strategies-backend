@@ -22,8 +22,8 @@ public class Esercizi implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, precision=10)
-    private int id;
+    @Column(name="id",unique=true, nullable=false, precision=10)
+    private int idEsercizio;
     @Column(nullable=false, precision=10)
     private int tipologia;
     @Column(name="testo_esercizio", length=30)
@@ -40,7 +40,7 @@ public class Esercizi implements Serializable {
      * @return the current value of id
      */
     public int getId() {
-        return id;
+        return idEsercizio;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Esercizi implements Serializable {
      * @param aId the new value for id
      */
     public void setId(int aId) {
-        id = aId;
+        idEsercizio = aId;
     }
 
     /**

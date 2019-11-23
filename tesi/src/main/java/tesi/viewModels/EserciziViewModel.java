@@ -14,12 +14,13 @@ public class EserciziViewModel {
 	private int tipologia;
 	private int id;
 	private ArrayList<String> soluzioni;
+	private int idEsercizio;
 	
 	public EserciziViewModel(Esercizi es, ArrayList<String> sol) {
-		this.id = es.getId();
 		this.tipologia = es.getTipologia();
 		this.testoEsercizio = es.getTestoEsercizio();
 		this.soluzioni = sol;
+		this.idEsercizio = es.getId();
 	}
 
 }
