@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import tesi.dataModel.Esercizi;
 
-public interface EserciziRepository extends CrudRepository<Esercizi, Long>{
+public interface EserciziRepository extends CrudRepository<Esercizi, Integer>{
 	
 	ArrayList<Esercizi> findEserciziByTipologia(int tipologia);
 	

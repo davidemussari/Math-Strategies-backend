@@ -1,11 +1,13 @@
 package tesi.controllers;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,16 +18,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tesi.dataModel.Esercizi;
 import tesi.dataModel.LegendaEsercizi;
+import tesi.dataModel.PrimaryStoricoEserciziSvoltiStudenti;
+import tesi.dataModel.PrimarySvolgimentiDaApprovare;
 import tesi.dataModel.StoricoEserciziSvoltiStudenti;
 import tesi.dataModel.SvolgimentiApprovati;
 import tesi.dataModel.SvolgimentiDaApprovare;
+import tesi.dataModel.Utenti;
 import tesi.repository.EserciziRepository;
 import tesi.repository.LegendaEserciziRepository;
 import tesi.repository.StoricoEserciziSvoltiStudentiRepository;
 import tesi.repository.SvolgimentiApprovatiRepository;
 import tesi.repository.SvolgimentiDaApprovareRepository;
+import tesi.repository.UtentiRepository;
 import tesi.variabiliGlobali.VariabiliGlobali;
 import tesi.viewModels.EserciziViewModel;
+import tesi.viewModels.EsercizioGrigliaStudente;
 
 @Controller
 @RequestMapping
@@ -46,6 +53,9 @@ public class EserciziController {
 	
 	@Autowired
 	private StoricoEserciziSvoltiStudentiRepository storicoEserciziSvoltiStudentiRepository;
+	
+	@Autowired
+	private UtentiRepository utentiRepository;
 	
 	
 	@PostMapping(path="/esercizioCasuale")
@@ -73,5 +83,31 @@ public class EserciziController {
 		return storicoEserciziSvoltiStudentiRepository.save(es) != null;
 	}
 	
-	
+	@PostMapping(path="/eserciziSvolti")
+	public @ResponseBody ArrayList<EsercizioGrigliaStudente> eserciziSvolti(HttpServletRequest request, @RequestBody Utenti ut) {
+		Optional<Utenti> utente = utentiRepository.findById(ut.getId());
+		if(utente.get().getDocenteAssegnato() > 0) {
+			//caso studente
+			ArrayList<EsercizioGrigliaStudente> elencoEsercizi = new ArrayList<>();
+			SvolgimentiDaApprovare[] esDaApprovare;
+			StoricoEserciziSvoltiStudenti[] esDaStorico;
+			esDaApprovare = svolgimentiDaApprovareRepository.findByIdStudente(ut.getId());
+			for (SvolgimentiDaApprovare esSvolto : esDaApprovare) {
+				Optional<Esercizi> es = eserciziRepository.findById((Integer) esSvolto.getIdEsercizio());
+				String tipologia = legendaEserciziRepository.findById(es.get().getTipologia()).getDescrizione();
+				EsercizioGrigliaStudente esGriglia = new EsercizioGrigliaStudente(esSvolto, tipologia);
+				elencoEsercizi.add(esGriglia);
+			}
+			esDaStorico = storicoEserciziSvoltiStudentiRepository.findByIdStudente(ut.getId());
+			for (StoricoEserciziSvoltiStudenti esSvolto : esDaStorico) {
+				Optional<Esercizi> es = eserciziRepository.findById((Integer) esSvolto.getidEsercizio());
+				String tipologia = legendaEserciziRepository.findById(es.get().getTipologia()).getDescrizione();
+				EsercizioGrigliaStudente esGriglia = new EsercizioGrigliaStudente(esSvolto, tipologia);
+				elencoEsercizi.add(esGriglia);
+			}
+			return elencoEsercizi;
+		}else {
+			return null;
+		}
+	}
 }

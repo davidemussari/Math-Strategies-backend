@@ -19,7 +19,7 @@ public class SvolgimentiDaApprovare implements Serializable {
     protected static final String PK = "primary";
 
     @Column(name="id_esercizio", nullable=false, precision=10)
-    private int idEsercizio;
+    private Integer idEsercizio;
     @EmbeddedId
     @Column(unique=true, nullable=false)
     private PrimarySvolgimentiDaApprovare primary;
@@ -28,7 +28,9 @@ public class SvolgimentiDaApprovare implements Serializable {
 
     /** Default constructor. */
     public SvolgimentiDaApprovare() {
-        super();
+        idEsercizio = null;
+        primary = new PrimarySvolgimentiDaApprovare();
+        passaggi = null;
     }
 
     /**

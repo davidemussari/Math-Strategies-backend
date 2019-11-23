@@ -12,7 +12,7 @@ public final class PrimaryStoricoEserciziSvoltiStudenti implements Serializable{
 	private static final long serialVersionUID = -1377480708198401870L;
 	
 	@Column(name="id_studente", nullable=false, precision=10)
-    private final int idStudente;
+    private int idStudente;
     @Column(nullable=false)
     private final Timestamp data;
 
@@ -24,7 +24,7 @@ public final class PrimaryStoricoEserciziSvoltiStudenti implements Serializable{
 
     /** Private default constructor (for ORM frameworks). */
     @SuppressWarnings("unused")
-    private PrimaryStoricoEserciziSvoltiStudenti() {
+	public PrimaryStoricoEserciziSvoltiStudenti() {
         this(0, null);
     }
 
@@ -94,5 +94,9 @@ public final class PrimaryStoricoEserciziSvoltiStudenti implements Serializable{
         result = 37*result + i;
         return result;
     }
+
+	public void setIdStudente(int id) {
+		idStudente = id;		
+	}
 
 }

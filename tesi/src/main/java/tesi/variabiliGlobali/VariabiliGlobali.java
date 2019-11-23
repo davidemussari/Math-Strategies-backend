@@ -20,6 +20,4 @@ public class VariabiliGlobali {
 			return null;
 		}
 	}
-	
-
 }

@@ -14,9 +14,9 @@ public final class PrimarySvolgimentiDaApprovare implements Serializable{
 	private static final long serialVersionUID = -7331396501113886816L;
 	
 	@Column(name="id_studente", nullable=false, precision=10)
-    private final int idStudente;
+    private int idStudente;
     @Column(nullable=false)
-    private final Timestamp data;
+    private Timestamp data;
 
     /** Initializing constructor. */
     public PrimarySvolgimentiDaApprovare(int idStudente, Timestamp data) {
@@ -26,7 +26,7 @@ public final class PrimarySvolgimentiDaApprovare implements Serializable{
 
     /** Private default constructor (for ORM frameworks). */
     @SuppressWarnings("unused")
-    private PrimarySvolgimentiDaApprovare() {
+	public PrimarySvolgimentiDaApprovare() {
         this(0, null);
     }
 
@@ -95,6 +95,10 @@ public final class PrimarySvolgimentiDaApprovare implements Serializable{
         }
         result = 37*result + i;
         return result;
+    }
+    
+    public void setIdStudente(int id) {
+    	idStudente = id;
     }
 
 }

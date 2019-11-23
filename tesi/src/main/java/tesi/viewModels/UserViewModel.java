@@ -13,6 +13,7 @@ public class UserViewModel {
 	private String username;
 	private int id;
 	private String tipoUtente;
+	private int docenteAssegnato;
 	
 	public UserViewModel(Utenti ut) {
 		this.nome = ut.getNome();
