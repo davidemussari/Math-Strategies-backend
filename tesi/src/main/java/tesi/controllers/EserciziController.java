@@ -32,7 +32,7 @@ import tesi.repository.SvolgimentiDaApprovareRepository;
 import tesi.repository.UtentiRepository;
 import tesi.variabiliGlobali.VariabiliGlobali;
 import tesi.viewModels.EserciziViewModel;
-import tesi.viewModels.EsercizioGrigliaStudente;
+import tesi.viewModels.EsercizioGriglia;
 
 @Controller
 @RequestMapping
@@ -84,30 +84,38 @@ public class EserciziController {
 	}
 	
 	@PostMapping(path="/eserciziSvolti")
-	public @ResponseBody ArrayList<EsercizioGrigliaStudente> eserciziSvolti(HttpServletRequest request, @RequestBody Utenti ut) {
+	public @ResponseBody ArrayList<EsercizioGriglia> eserciziSvolti(HttpServletRequest request, @RequestBody Utenti ut) {
 		Optional<Utenti> utente = utentiRepository.findById(ut.getId());
+		ArrayList<EsercizioGriglia> elencoEsercizi = new ArrayList<>();
 		if(utente.get().getDocenteAssegnato() > 0) {
 			//caso studente
-			ArrayList<EsercizioGrigliaStudente> elencoEsercizi = new ArrayList<>();
-			SvolgimentiDaApprovare[] esDaApprovare;
-			StoricoEserciziSvoltiStudenti[] esDaStorico;
-			esDaApprovare = svolgimentiDaApprovareRepository.findByIdStudente(ut.getId());
-			for (SvolgimentiDaApprovare esSvolto : esDaApprovare) {
-				Optional<Esercizi> es = eserciziRepository.findById((Integer) esSvolto.getIdEsercizio());
-				String tipologia = legendaEserciziRepository.findById(es.get().getTipologia()).getDescrizione();
-				EsercizioGrigliaStudente esGriglia = new EsercizioGrigliaStudente(esSvolto, tipologia);
-				elencoEsercizi.add(esGriglia);
-			}
-			esDaStorico = storicoEserciziSvoltiStudentiRepository.findByIdStudente(ut.getId());
-			for (StoricoEserciziSvoltiStudenti esSvolto : esDaStorico) {
-				Optional<Esercizi> es = eserciziRepository.findById((Integer) esSvolto.getidEsercizio());
-				String tipologia = legendaEserciziRepository.findById(es.get().getTipologia()).getDescrizione();
-				EsercizioGrigliaStudente esGriglia = new EsercizioGrigliaStudente(esSvolto, tipologia);
-				elencoEsercizi.add(esGriglia);
-			}
-			return elencoEsercizi;
+			elencoEsercizi = generaArrayEserciziGriglia(utente);
 		}else {
-			return null;
+			ArrayList<Optional<Utenti>> alunni = utentiRepository.findByDocenteAssegnato(utente.get().getId());
+			for(Optional<Utenti> alunno: alunni)
+				elencoEsercizi = generaArrayEserciziGriglia(alunno);
 		}
+		return elencoEsercizi;
+	}
+	
+	public ArrayList<EsercizioGriglia> generaArrayEserciziGriglia(Optional<Utenti> utente) {
+		SvolgimentiDaApprovare[] esDaApprovare;
+		StoricoEserciziSvoltiStudenti[] esDaStorico;
+		ArrayList<EsercizioGriglia> elencoEsercizi = new ArrayList<>();
+		esDaApprovare = svolgimentiDaApprovareRepository.findByIdStudente(utente.get().getId());
+		for (SvolgimentiDaApprovare esSvolto : esDaApprovare) {
+			Optional<Esercizi> es = eserciziRepository.findById((Integer) esSvolto.getIdEsercizio());
+			String tipologia = legendaEserciziRepository.findById(es.get().getTipologia()).getDescrizione();
+			EsercizioGriglia esGriglia = new EsercizioGriglia(esSvolto, tipologia, utente);
+			elencoEsercizi.add(esGriglia);
+		}
+		esDaStorico = storicoEserciziSvoltiStudentiRepository.findByIdStudente(utente.get().getId());
+		for (StoricoEserciziSvoltiStudenti esSvolto : esDaStorico) {
+			Optional<Esercizi> es = eserciziRepository.findById((Integer) esSvolto.getidEsercizio());
+			String tipologia = legendaEserciziRepository.findById(es.get().getTipologia()).getDescrizione();
+			EsercizioGriglia esGriglia = new EsercizioGriglia(esSvolto, tipologia, utente);
+			elencoEsercizi.add(esGriglia);
+		}
+		return elencoEsercizi;
 	}
 }
