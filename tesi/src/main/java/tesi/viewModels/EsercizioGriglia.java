@@ -19,6 +19,7 @@ public class EsercizioGriglia {
 	private String tipologia;
 	private String nomeAlunno;
 	private String cognomeAlunno;
+	private String commenti;
 	
 	public EsercizioGriglia(SvolgimentiDaApprovare svolgimento, String tip, Optional<Utenti> utente ) {
 		this.punteggio = null;
@@ -27,6 +28,7 @@ public class EsercizioGriglia {
 		this.tipologia = tip;
 		this.nomeAlunno = utente.get().getNome();
 		this.cognomeAlunno = utente.get().getCognome();
+		this.commenti = null;
 	}
 
 	public EsercizioGriglia(StoricoEserciziSvoltiStudenti esSvolto, String tip, Optional<Utenti> utente) {
@@ -36,6 +38,7 @@ public class EsercizioGriglia {
 		this.tipologia = tip;
 		this.nomeAlunno = utente.get().getNome();
 		this.cognomeAlunno = utente.get().getCognome();
+		this.commenti = esSvolto.getCommenti();
 	}
 	
 

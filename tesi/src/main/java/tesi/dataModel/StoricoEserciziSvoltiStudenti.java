@@ -22,6 +22,8 @@ public class StoricoEserciziSvoltiStudenti implements Serializable {
     private int idEsercizio;
     @Column(nullable=false, length=15000)
     private String passaggi;
+    @Column(nullable=true, length=200)
+    private String commenti;
     @EmbeddedId
     @Column(unique=true, nullable=false)
     private PrimaryStoricoEserciziSvoltiStudenti primary;
@@ -49,6 +51,24 @@ public class StoricoEserciziSvoltiStudenti implements Serializable {
      */
     public void setidEsercizio(int id) {
     	idEsercizio = id;
+    }
+    
+    /**
+     * Access method for passaggi.
+     *
+     * @return the current value of passaggi
+     */
+    public String getCommenti() {
+        return commenti;
+    }
+
+    /**
+     * Setter method for passaggi.
+     *
+     * @param aPassaggi the new value for passaggi
+     */
+    public void setcommenti(String commento) {
+    	commenti = commento;
     }
     
     /**
