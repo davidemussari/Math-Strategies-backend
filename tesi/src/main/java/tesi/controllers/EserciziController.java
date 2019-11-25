@@ -1,5 +1,6 @@
 package tesi.controllers;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -117,5 +118,26 @@ public class EserciziController {
 			elencoEsercizi.add(esGriglia);
 		}
 		return elencoEsercizi;
+	}
+	
+	@PutMapping(path="/salvaCommentoPunteggio", produces = "application/json")
+	public @ResponseBody Boolean putSalvaCommentoPunteggio(HttpServletRequest request, @RequestBody EsercizioGriglia es) {
+		Optional<SvolgimentiDaApprovare> esDaApprovare = svolgimentiDaApprovareRepository.findByIdStudenteData(es.getIdStudente(), (Timestamp)es.getData());
+		StoricoEserciziSvoltiStudenti storicoEsDaSalvare = null;
+		if(!esDaApprovare.isEmpty()) {
+			storicoEsDaSalvare = new StoricoEserciziSvoltiStudenti(esDaApprovare, es);
+			svolgimentiDaApprovareRepository.delete(esDaApprovare.get());
+			if(storicoEsDaSalvare.getPunteggio() == 5) {
+				SvolgimentiApprovati svolgimentoApprovato = new SvolgimentiApprovati(storicoEsDaSalvare);
+				svolgimentiApprovatiRepository.save(svolgimentoApprovato);
+			}
+		}else {
+			Optional<StoricoEserciziSvoltiStudenti> storicoEsDaSalvareOpt = storicoEserciziSvoltiStudentiRepository.findByIdStudenteData(es.getIdStudente(), (Timestamp)es.getData());
+			if(!storicoEsDaSalvareOpt.isEmpty())
+				storicoEsDaSalvare = storicoEsDaSalvareOpt.get();
+			storicoEsDaSalvare.setcommenti(es.getCommenti());
+			storicoEsDaSalvare.setPunteggio(es.getPunteggio());
+		}
+		return storicoEserciziSvoltiStudentiRepository.save(storicoEsDaSalvare) != null;
 	}
 }

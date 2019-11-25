@@ -1,6 +1,8 @@
 package tesi.repository;
 
-import org.springframework.data.domain.Example;
+import java.sql.Timestamp;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,4 +14,7 @@ public interface SvolgimentiDaApprovareRepository
 
 	@Query(value = "SELECT * FROM svolgimenti_da_approvare WHERE id_studente = ?1", nativeQuery = true)
 	SvolgimentiDaApprovare[] findByIdStudente(int idStudente);
+	
+	@Query(value = "SELECT * FROM svolgimenti_da_approvare WHERE id_studente = ?1 AND data = ?2", nativeQuery = true)
+	Optional<SvolgimentiDaApprovare> findByIdStudenteData(int idStudente, Timestamp data);
 }

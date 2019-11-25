@@ -5,10 +5,13 @@ package tesi.dataModel;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+
+import tesi.viewModels.EsercizioGriglia;
 
 @Entity(name="storico_esercizi_svolti_studenti")
 public class StoricoEserciziSvoltiStudenti implements Serializable {
@@ -35,7 +38,18 @@ public class StoricoEserciziSvoltiStudenti implements Serializable {
         super();
     }
 
-    /**
+	public StoricoEserciziSvoltiStudenti(Optional<SvolgimentiDaApprovare> esDaApprovare, EsercizioGriglia es) {
+		 idEsercizio = esDaApprovare.get().getIdEsercizio();
+    	 passaggi = esDaApprovare.get().getPassaggi();
+    	 commenti = es.getCommenti();
+    	 PrimaryStoricoEserciziSvoltiStudenti pk = new PrimaryStoricoEserciziSvoltiStudenti();
+    	 pk.setIdStudente(esDaApprovare.get().getPrimary().getIdStudente());
+    	 pk.setData(esDaApprovare.get().getPrimary().getData());
+    	 primary = pk;
+    	 punteggio = es.getPunteggio();
+	}
+
+	/**
      * Access method for passaggi.
      *
      * @return the current value of passaggi

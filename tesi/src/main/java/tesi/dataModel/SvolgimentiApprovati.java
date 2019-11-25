@@ -22,7 +22,7 @@ public class SvolgimentiApprovati implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, precision=10)
+    @Column(unique=true, nullable=false, precision=10, columnDefinition = "serial")
     private int id;
     @Column(name="id_esercizio", nullable=false, precision=10)
     private int idEsercizio;
@@ -34,7 +34,12 @@ public class SvolgimentiApprovati implements Serializable {
         super();
     }
 
-    /**
+    public SvolgimentiApprovati(StoricoEserciziSvoltiStudenti storicoEsDaSalvare) {
+    	idEsercizio = storicoEsDaSalvare.getidEsercizio();
+    	passaggi = storicoEsDaSalvare.getPassaggi();
+	}
+
+	/**
      * Access method for id.
      *
      * @return the current value of id

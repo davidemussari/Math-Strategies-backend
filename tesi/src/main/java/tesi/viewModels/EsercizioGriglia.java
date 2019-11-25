@@ -1,5 +1,6 @@
 package tesi.viewModels;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
 
@@ -14,12 +15,16 @@ import tesi.dataModel.Utenti;
 public class EsercizioGriglia {
 	
 	private Integer punteggio;
-	private Date data;
+	private Timestamp data;
 	private String passaggi;
 	private String tipologia;
 	private String nomeAlunno;
 	private String cognomeAlunno;
 	private String commenti;
+	private Integer idStudente;
+	private Integer idEsercizio;
+    private String[] testoEsercizio;
+    
 	
 	public EsercizioGriglia(SvolgimentiDaApprovare svolgimento, String tip, Optional<Utenti> utente ) {
 		this.punteggio = null;
@@ -29,6 +34,9 @@ public class EsercizioGriglia {
 		this.nomeAlunno = utente.get().getNome();
 		this.cognomeAlunno = utente.get().getCognome();
 		this.commenti = null;
+		this.idStudente = svolgimento.getPrimary().getIdStudente();
+		this.idEsercizio = svolgimento.getIdEsercizio();
+		this.testoEsercizio = null;
 	}
 
 	public EsercizioGriglia(StoricoEserciziSvoltiStudenti esSvolto, String tip, Optional<Utenti> utente) {
@@ -39,7 +47,17 @@ public class EsercizioGriglia {
 		this.nomeAlunno = utente.get().getNome();
 		this.cognomeAlunno = utente.get().getCognome();
 		this.commenti = esSvolto.getCommenti();
+		this.idStudente = esSvolto.getPrimary().getIdStudente();
+		this.idEsercizio = esSvolto.getidEsercizio();
+		this.testoEsercizio = null;
+	}
+
+	public EsercizioGriglia() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
-
+	
+	
+	
 }

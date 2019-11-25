@@ -14,7 +14,7 @@ public final class PrimaryStoricoEserciziSvoltiStudenti implements Serializable{
 	@Column(name="id_studente", nullable=false, precision=10)
     private int idStudente;
     @Column(nullable=false)
-    private final Timestamp data;
+    private Timestamp data;
 
     /** Initializing constructor. */
     public PrimaryStoricoEserciziSvoltiStudenti(int idStudente, Timestamp data) {
@@ -97,6 +97,10 @@ public final class PrimaryStoricoEserciziSvoltiStudenti implements Serializable{
 
 	public void setIdStudente(int id) {
 		idStudente = id;		
+	}
+	
+	public void setData(Timestamp d) {
+		data = d;		
 	}
 
 }
