@@ -14,4 +14,6 @@ public interface UtentiRepository extends CrudRepository<Utenti, Integer> {
 	Utenti findByUsernameAndPasswd(String username, String passwd);
 
 	ArrayList<Optional<Utenti>> findByDocenteAssegnato(int docenteAssegnato);
+
+	Utenti findByUsername(String username);
 }

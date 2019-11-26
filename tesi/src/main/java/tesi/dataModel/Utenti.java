@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import tesi.viewModels.IscrizioneViewModel;
+
 @Entity(name="utenti")
 public class Utenti implements Serializable {
 
@@ -22,7 +24,7 @@ public class Utenti implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, precision=10)
+    @Column(unique=true, nullable=false, precision=10, columnDefinition = "serial")
     private int id;
     @Column(name="NOME", nullable=false, length=30)
     private String nome;
@@ -40,7 +42,22 @@ public class Utenti implements Serializable {
         super();
     }
 
-    /**
+    public Utenti(IscrizioneViewModel utente, int idDocente) {
+    	nome = utente.nome;
+    	cognome = utente.cognome;
+    	passwd = utente.passwd;
+    	username = utente.username;
+    	docenteAssegnato = idDocente;
+	}
+
+	public Utenti(IscrizioneViewModel utente) {
+		nome = utente.nome;
+    	cognome = utente.cognome;
+    	passwd = utente.passwd;
+    	username = utente.username;
+	}
+
+	/**
      * Access method for id.
      *
      * @return the current value of id
